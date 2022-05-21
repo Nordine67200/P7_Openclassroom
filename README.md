@@ -1,4 +1,4 @@
-﻿Métrique d’évaluation
+﻿***Métrique d’évaluation***
 
 **Choix de la métrique**
 
