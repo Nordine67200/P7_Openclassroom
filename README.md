@@ -14,19 +14,19 @@ La matrice de précision se présente ainsi :
 
 Les pertes financières liées aux défauts de paiement sont bien plus important que la perte potentielle de clients. Il est donc préférable de mieux prédire les clients en risque de défaut de paiement. On essaiera donc de maximiser le recall :
 
-![](recall_formula.png)
+![](./images/recall_formula.png)
 
 Cela dit, il faudra aussi faire attention à ne pas avoir une précision trop faible pour maximiser le nombre de clients :
 
-![](precision_formula.png)
+![](./images/precision_formula.png)
 
 Cet arbitrage se fait via le seuil de classification. Plus il sera faible, plus la classification favorisera les vrais positifs mais aussi les faux positifs (hausse du recall et baisse des précisions). Plus il sera élevé et plus il favorisera les vrais négatifs mais aussi les faux négatifs (hausse de la précision et baisse du recall)
 
 Ce choix s’effectue via le dashboard :
 
 
-![](CaptureChoixSeuil.PNG)
+![](./images/CaptureChoixSeuil.PNG)
 
-![](CaptureScoreBarPlot.PNG)
+![](./images/CaptureScoreBarPlot.PNG)
 
 
