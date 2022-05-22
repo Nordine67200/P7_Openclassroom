@@ -14,19 +14,19 @@ La matrice de précision se présente ainsi :
 
 Les pertes financières liées aux défauts de paiement sont bien plus important que la perte potentielle de clients. Il est donc préférable de mieux prédire les clients en risque de défaut de paiement. On essaiera donc de maximiser le recall :
 
-![](Aspose.Words.32418b51-423e-4b20-b260-86ab99ef70f9.001.png)
+![](recall_formula.png)
 
 Cela dit, il faudra aussi faire attention à ne pas avoir une précision trop faible pour maximiser le nombre de clients :
 
-![](Aspose.Words.32418b51-423e-4b20-b260-86ab99ef70f9.002.png)
+![](precision_formula.png)
 
 Cet arbitrage se fait via le seuil de classification. Plus il sera faible, plus la classification favorisera les vrais positifs mais aussi les faux positifs (hausse du recall et baisse des précisions). Plus il sera élevé et plus il favorisera les vrais négatifs mais aussi les faux négatifs (hausse de la précision et baisse du recall)
 
 Ce choix s’effectue via le dashboard :
 
 
-![](Aspose.Words.32418b51-423e-4b20-b260-86ab99ef70f9.003.png)
+![](CaptureChoixSeuil.PNG)
 
-![](Aspose.Words.32418b51-423e-4b20-b260-86ab99ef70f9.004.png)
+![](CaptureScoreBarPlot.PNG)
 
 
