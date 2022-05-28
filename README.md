@@ -7,6 +7,10 @@ Lien du github où se trouve le notebook ainsi que les différentes sources:
 
 https://github.com/Nordine67200/P7_Openclassroom
 
+Lien du dashboard:
+
+https://p7-dashboard-app.herokuapp.com
+
 ## CONTEXTE
 
 • Dans le cadre du projet 7 de la formation Data Scentist, il est demandé d'implémenter un modèle de scoring de demande de prêt. Cette note présente le processus de modélisation et d'interprétabilité.
