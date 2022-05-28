@@ -31,8 +31,6 @@ ce fait, si l'on sépare le jeu de données en données de training et de test d
 
 La séparation se fera en utilisant la fonction train\_test\_split (sklearn.model\_selection) avec l'option stratify=y.
 
-\-
-
 Les données représentant les défauts de paiement étant largement minoritaire (8%), il n'a pas assez de représentants pour que le modèle en apprenne le pattern. Pour éviter ce problème, deux approches ont été testées:
 
 \- SMOTE: algorithme qui synthétise des données pour la classe minoritaire. Permet de créer un jeu de données équilibré.
@@ -97,5 +95,19 @@ Ce choix s’effectue via le dashboard :
 ![](./images/CaptureChoixSeuil.PNG)
 
 ![](./images/CaptureScoreBarPlot.PNG)
+
+
+## INTERPRETABILITE DU MODELE
+
+Les équipes opérationnelles devant être en mesure d'expliquer les décisions de l'algorithmes, un dashboard est mis à leur disposition avec deux volets principales:
+
+\- Volet analyse par prêt: permet de visualiser le score ainsi que la décision et de l'expliquer via une comparaison des 10 paramètres les plus influents avec les données d'un quantile au choix:
+
+![](./images/CaptureDataVsQuantile.PNG)
+
+\- Voletanalyse du modèle: permet de visualiser la performance du modèle par seuil de décision (voir plus haut).
+
+## AMELIORATIONS POSSIBLES
+
 
 
