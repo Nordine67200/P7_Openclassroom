@@ -1,22 +1,15 @@
 
 
-**PRO JET 7 - I MPL ÉMENT ER UN MO DÈL E**
+**PROJET 7 - IMPLÉMENTER UN MODÈLE DE SCORING**
 
-**DE SCO RI NG**
 
-NOTE
-
-MÉTHODOLOGIQUE
+NOTE MÉTHODOLOGIQUE
 
 Lien du github où se trouve le notebook ainsi que les différentes
 
 sources:
 
 https://github.com/Nordine67200/P7\_Openclassroom
-
-
-
-
 
 CONTEXTE
 
@@ -78,10 +71,6 @@ avec l'option stratify=y.
 
 \-
 
-
-
-
-
 Les données représentant les défauts de paiement étant largement minoritaire (8%), il n'a pas
 
 assez de représentants pour que le modèle en apprenne le pattern. Pour éviter ce problème, deux
@@ -96,10 +85,7 @@ de données équilibré.
 
 paiement) dans la fonction de coût de sorte à accorder une plus grosse pénalité et ainsi modifier
 
-les paramètres du model:
-
-
-
+les paramètres du model.
 
 
 **TUNING des hyper-paramètres**
@@ -133,31 +119,16 @@ learning ci-dessous:
 \- LGBMClassifier
 
 
-
-
-
-METRIQUES
+***METRIQUES***
 
 **Fonction de coût**
 
-**Algorithme**
 
-**Fonction de coût**
-
-Gini impurity
-
-Log loss
-
-RandomForestClassifier
-
-XGBoostClassifer
-
-LGBMClassifer
-
-Log loss
-
-
-
+||**Algorithme**|**Fonction de coût**|
+| :- | :- | :- |
+|RandomForestClassifier|Gini impurity|
+|XGBoostClassifer|Log loss|
+|LGBMClassifer|Log loss|
 
 ***Métrique d’évaluation***
 
