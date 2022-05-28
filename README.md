@@ -11,43 +11,17 @@ https://github.com/Nordine67200/P7\_Openclassroom
 
 CONTEXTE
 
-• Dans le cadre du projet 7 de la formation Data Scentist, il est
+• Dans le cadre du projet 7 de la formation Data Scentist, il est demandé d'implémenter un modèle de scoring de demande de prêt. Cette note présente le processus de modélisation et d'interprétabilité.
 
-demandé d'implémenter un modèle de scoring de demande de prêt.
+• Une société financière, nommée **"Prêt à dépenser"**, qui propose des crédits à la consommation pour des personnes ayant peu ou pas du tout d'historique de prêt, désire mettre en œuvre un modèle de "scoring crédit" qui correspond à la probabilité qu'un client rembourse le prêt.
 
-Cette note présente le processus de modélisation et d'interprétabilité.
+• Les données utilisées comportent un fichier contenant les demandes de prêts ainsi que d'autres fichiers correspondant à l'historique des précédents prêts dans l'application et auprès d'autres organismes financiers.
 
-• Une société financière, nommée **"Prêt à dépenser"**, qui propose des
+METHODOLOGIE D'ENTRAINEMENT DU MODELE
 
-crédits à la consommation pour des personnes ayant peu ou pas du
+Le modèle a été entrainé avec un jeu de donnée issue d'un preprocessing comportant les phases de feature engineering, consolidation, nettoyage et transformation. Le
 
-tout d'historique de prêt, désire mettre en œuvre un modèle de
-
-"scoring crédit" qui correspond à la probabilité qu'un client rembourse
-
-le prêt.
-
-• Les données utilisées comportent un fichier contenant les demandes
-
-de prêts ainsi que d'autres fichiers correspondant à l'historique des
-
-précédents prêts dans l'application et auprès d'autres organismes
-
-financiers.
-
-
-
-
-
-METHODOLOGIE D'ENTRAINEMENT
-
-DU MODELE
-
-Le modèle a été entrainé avec un jeu de donnée issue d'un preprocessing comportant
-
-les phases de feature engineering, consolidation, nettoyage et transformation. Le
-
-notebook utilisé est consultable sur le site kaggle
+notebook utilisé est consultable sur le site kaggle:
 
 ([https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analys](https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée)
 
