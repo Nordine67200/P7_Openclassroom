@@ -105,9 +105,11 @@ Les équipes opérationnelles devant être en mesure d'expliquer les décisions 
 
 ![](./images/CaptureDataVsQuantile.PNG)
 
-\- Voletanalyse du modèle: permet de visualiser la performance du modèle par seuil de décision (voir plus haut).
+\- Volet analyse du modèle: permet de visualiser la performance du modèle par seuil de décision (voir plus haut).
 
 ## AMELIORATIONS POSSIBLES
 
-
+Un premier axe d'amélioration est de définir plus finement la métrique d'évaluation avec le métier afin d'obtenir un arbitrage recall/précision plus en accord avec les réalités financières. Cela résulterait sur un f-beta score plus fidèle à leur besoin.
+Un deuxième axe serait de rajouter plus de variables à nos modèles et éventuellement d'en créer d'autres avec le métier pour aider le modèle à être plus efficace.
+Enfin, il serait intéressant de transformer plus finement les variables fortement skewed sans dénaturer leur skewness en les rendant symétriques mais en essayant d'avoir, pour chaque variable, une skewness la plus proche de la variable target (environ 10% de données dans le tail).
 
