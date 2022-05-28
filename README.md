@@ -65,14 +65,11 @@ Ces deux approches ont été utilisées sur des jeux de données enrichies par l
 |XGBoostClassifer|Log loss|
 |LGBMClassifer|Log loss|
 
-***Métrique d’évaluation***
-
-**Choix de la métrique**
+**Métrique d’évaluation**
 
 Dans le jeu de données, il y’a une part de 92 % des clients qui n’ont pas d’incident de paiement tandis que seulement de 8% des clients ont eu des incidents.
 
 La matrice de précision se présente ainsi :
-
 
 ||Clients prédits sans risque|Clients prédits en risque|
 | :- | :- | :- |
@@ -95,6 +92,8 @@ Ce choix s’effectue via le dashboard :
 ![](./images/CaptureChoixSeuil.PNG)
 
 ![](./images/CaptureScoreBarPlot.PNG)
+
+Le f1-score effectuant une moyenne harmonique entre le recall et la précision en donnant autant de poids à l'un qu'à l'autre, on se basera sur un fbeta-score avec beta = 2. 
 
 
 ## INTERPRETABILITE DU MODELE
