@@ -1,15 +1,13 @@
 
 
-**PROJET 7 - IMPLÉMENTER UN MODÈLE DE SCORING**
-
-
-NOTE MÉTHODOLOGIQUE
+# PROJET 7 - IMPLÉMENTER UN MODÈLE DE SCORING
+# NOTE MÉTHODOLOGIQUE
 
 Lien du github où se trouve le notebook ainsi que les différentes sources:
 
 https://github.com/Nordine67200/P7\_Openclassroom
 
-CONTEXTE
+## CONTEXTE
 
 • Dans le cadre du projet 7 de la formation Data Scentist, il est demandé d'implémenter un modèle de scoring de demande de prêt. Cette note présente le processus de modélisation et d'interprétabilité.
 
@@ -17,7 +15,7 @@ CONTEXTE
 
 • Les données utilisées comportent un fichier contenant les demandes de prêts ainsi que d'autres fichiers correspondant à l'historique des précédents prêts dans l'application et auprès d'autres organismes financiers.
 
-METHODOLOGIE D'ENTRAINEMENT DU MODELE
+## METHODOLOGIE D'ENTRAINEMENT DU MODELE
 
 Le modèle a été entrainé avec un jeu de donnée issue d'un preprocessing comportant les phases de feature engineering, consolidation, nettoyage et transformation. Le
 
@@ -58,7 +56,7 @@ Ces deux approches ont été utilisées sur des jeux de données enrichies par l
 \- LGBMClassifier
 
 
-***METRIQUES***
+## METRIQUES
 
 **Fonction de coût**
 
