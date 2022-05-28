@@ -124,7 +124,7 @@ learning ci-dessous:
 **Fonction de coût**
 
 
-||**Algorithme**|**Fonction de coût**|
+|**Algorithme**|**Fonction de coût**|
 | :- | :- | :- |
 |RandomForestClassifier|Gini impurity|
 |XGBoostClassifer|Log loss|
