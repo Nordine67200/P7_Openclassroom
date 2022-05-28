@@ -5,7 +5,7 @@
 
 Lien du github où se trouve le notebook ainsi que les différentes sources:
 
-https://github.com/Nordine67200/P7\_Openclassroom
+https://github.com/Nordine67200/P7_Openclassroom
 
 ## CONTEXTE
 
