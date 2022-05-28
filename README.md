@@ -1,4 +1,165 @@
-﻿***Métrique d’évaluation***
+
+
+**PRO JET 7 - I MPL ÉMENT ER UN MO DÈL E**
+
+**DE SCO RI NG**
+
+NOTE
+
+MÉTHODOLOGIQUE
+
+Lien du github où se trouve le notebook ainsi que les différentes
+
+sources:
+
+https://github.com/Nordine67200/P7\_Openclassroom
+
+
+
+
+
+CONTEXTE
+
+• Dans le cadre du projet 7 de la formation Data Scentist, il est
+
+demandé d'implémenter un modèle de scoring de demande de prêt.
+
+Cette note présente le processus de modélisation et d'interprétabilité.
+
+• Une société financière, nommée **"Prêt à dépenser"**, qui propose des
+
+crédits à la consommation pour des personnes ayant peu ou pas du
+
+tout d'historique de prêt, désire mettre en œuvre un modèle de
+
+"scoring crédit" qui correspond à la probabilité qu'un client rembourse
+
+le prêt.
+
+• Les données utilisées comportent un fichier contenant les demandes
+
+de prêts ainsi que d'autres fichiers correspondant à l'historique des
+
+précédents prêts dans l'application et auprès d'autres organismes
+
+financiers.
+
+
+
+
+
+METHODOLOGIE D'ENTRAINEMENT
+
+DU MODELE
+
+Le modèle a été entrainé avec un jeu de donnée issue d'un preprocessing comportant
+
+les phases de feature engineering, consolidation, nettoyage et transformation. Le
+
+notebook utilisé est consultable sur le site kaggle
+
+([https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analys](https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée)
+
+[e-univariée](https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée)).
+
+Le jeu de données étant déséquilibrée: 92% des données ne sont pas des prêts ne
+
+présentent pas de risque de défaut de paiement tandis que seul 8% en présente. De
+
+ce fait, si l'on sépare le jeu de données en données de training et de test de manière
+
+aléatoire, il y a des risques que l'on n'ait que les prêts en risque dans le jeu de training
+
+ou de test, ce qui nous donnera un mauvais score.
+
+La séparation se fera en utilisant la fonction train\_test\_split (sklearn.model\_selection)
+
+avec l'option stratify=y.
+
+\-
+
+
+
+
+
+Les données représentant les défauts de paiement étant largement minoritaire (8%), il n'a pas
+
+assez de représentants pour que le modèle en apprenne le pattern. Pour éviter ce problème, deux
+
+approches ont été testées:
+
+\- SMOTE: algorithme qui synthétise des données pour la classe minoritaire. Permet de créer un jeu
+
+de données équilibré.
+
+\- class weights: plus de poids est appliqué aux données minoritaire (ici les prêts en défaut de
+
+paiement) dans la fonction de coût de sorte à accorder une plus grosse pénalité et ainsi modifier
+
+les paramètres du model:
+
+
+
+
+
+**TUNING des hyper-paramètres**
+
+Etant donné la lenteur de GridSearchCV qui compare les performances pour chaque
+
+combinaison de valeurs de plage de chaque paramètre, deux types d'approche ont été testé:
+
+\- RandomizedSearchCV: contrairement à GridSearchCV, toutes les valeurs de paramètre ne
+
+sont pas testées, mais un nombre fixe de paramètres est échantillonné à partir des distributions
+
+spécifiées. Le nombre de paramétrages essayés est donné par n\_iter.
+
+\- BayesianOptimisation: méthode séquentielle basée sur le processus gaussien pour trouver le
+
+minimum d'une fonction (on détermine une fonction qui prend en entrée les hyperparamètres et
+
+retourne le score)
+
+Ces deux approches ont été utilisées sur des jeux de données enrichies par la méthode SMOTE
+
+puis sans mais en utilisant l'hyperparamètre class\_weight sur les algorithmes de machine
+
+learning ci-dessous:
+
+\- RandomForestClassifier
+
+\- XGBoostClassifier
+
+\- LGBMClassifier
+
+
+
+
+
+METRIQUES
+
+**Fonction de coût**
+
+**Algorithme**
+
+**Fonction de coût**
+
+Gini impurity
+
+Log loss
+
+RandomForestClassifier
+
+XGBoostClassifer
+
+LGBMClassifer
+
+Log loss
+
+
+
+
+***Métrique d’évaluation***
 
 **Choix de la métrique**
 
