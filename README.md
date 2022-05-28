@@ -5,9 +5,7 @@
 
 NOTE MÉTHODOLOGIQUE
 
-Lien du github où se trouve le notebook ainsi que les différentes
-
-sources:
+Lien du github où se trouve le notebook ainsi que les différentes sources:
 
 https://github.com/Nordine67200/P7\_Openclassroom
 
@@ -55,62 +53,29 @@ notebook utilisé est consultable sur le site kaggle
 
 [e-univariée](https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée)).
 
-Le jeu de données étant déséquilibrée: 92% des données ne sont pas des prêts ne
+Le jeu de données étant déséquilibrée: 92% des données ne sont pas des prêts ne présentent pas de risque de défaut de paiement tandis que seul 8% en présente. De
 
-présentent pas de risque de défaut de paiement tandis que seul 8% en présente. De
+ce fait, si l'on sépare le jeu de données en données de training et de test de manière aléatoire, il y a des risques que l'on n'ait que les prêts en risque dans le jeu de training ou de test, ce qui nous donnera un mauvais score.
 
-ce fait, si l'on sépare le jeu de données en données de training et de test de manière
-
-aléatoire, il y a des risques que l'on n'ait que les prêts en risque dans le jeu de training
-
-ou de test, ce qui nous donnera un mauvais score.
-
-La séparation se fera en utilisant la fonction train\_test\_split (sklearn.model\_selection)
-
-avec l'option stratify=y.
+La séparation se fera en utilisant la fonction train\_test\_split (sklearn.model\_selection) avec l'option stratify=y.
 
 \-
 
-Les données représentant les défauts de paiement étant largement minoritaire (8%), il n'a pas
+Les données représentant les défauts de paiement étant largement minoritaire (8%), il n'a pas assez de représentants pour que le modèle en apprenne le pattern. Pour éviter ce problème, deux approches ont été testées:
 
-assez de représentants pour que le modèle en apprenne le pattern. Pour éviter ce problème, deux
+\- SMOTE: algorithme qui synthétise des données pour la classe minoritaire. Permet de créer un jeu de données équilibré.
 
-approches ont été testées:
-
-\- SMOTE: algorithme qui synthétise des données pour la classe minoritaire. Permet de créer un jeu
-
-de données équilibré.
-
-\- class weights: plus de poids est appliqué aux données minoritaire (ici les prêts en défaut de
-
-paiement) dans la fonction de coût de sorte à accorder une plus grosse pénalité et ainsi modifier
-
-les paramètres du model.
-
+\- class weights: plus de poids est appliqué aux données minoritaire (ici les prêts en défaut de paiement) dans la fonction de coût de sorte à accorder une plus grosse pénalité et ainsi modifier les paramètres du model.
 
 **TUNING des hyper-paramètres**
 
-Etant donné la lenteur de GridSearchCV qui compare les performances pour chaque
+Etant donné la lenteur de GridSearchCV qui compare les performances pour chaque combinaison de valeurs de plage de chaque paramètre, deux types d'approche ont été testé:
 
-combinaison de valeurs de plage de chaque paramètre, deux types d'approche ont été testé:
+\- RandomizedSearchCV: contrairement à GridSearchCV, toutes les valeurs de paramètre ne sont pas testées, mais un nombre fixe de paramètres est échantillonné à partir des distributions spécifiées. Le nombre de paramétrages essayés est donné par n\_iter.
 
-\- RandomizedSearchCV: contrairement à GridSearchCV, toutes les valeurs de paramètre ne
+\- BayesianOptimisation: méthode séquentielle basée sur le processus gaussien pour trouver le minimum d'une fonction (on détermine une fonction qui prend en entrée les hyperparamètres et retourne le score)
 
-sont pas testées, mais un nombre fixe de paramètres est échantillonné à partir des distributions
-
-spécifiées. Le nombre de paramétrages essayés est donné par n\_iter.
-
-\- BayesianOptimisation: méthode séquentielle basée sur le processus gaussien pour trouver le
-
-minimum d'une fonction (on détermine une fonction qui prend en entrée les hyperparamètres et
-
-retourne le score)
-
-Ces deux approches ont été utilisées sur des jeux de données enrichies par la méthode SMOTE
-
-puis sans mais en utilisant l'hyperparamètre class\_weight sur les algorithmes de machine
-
-learning ci-dessous:
+Ces deux approches ont été utilisées sur des jeux de données enrichies par la méthode SMOTE puis sans mais en utilisant l'hyperparamètre class\_weight sur les algorithmes de machine learning ci-dessous:
 
 \- RandomForestClassifier
 
