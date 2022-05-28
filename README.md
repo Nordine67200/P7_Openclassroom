@@ -21,9 +21,10 @@ Le modèle a été entrainé avec un jeu de donnée issue d'un preprocessing com
 
 notebook utilisé est consultable sur le site kaggle:
 
-([https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analys](https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée)
+([https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée]
+(https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée)
 
-[e-univariée](https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée)).
+(https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée)).
 
 Le jeu de données étant déséquilibrée: 92% des données ne sont pas des prêts ne présentent pas de risque de défaut de paiement tandis que seul 8% en présente. De
 
