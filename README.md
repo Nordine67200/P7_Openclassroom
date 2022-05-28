@@ -35,7 +35,9 @@ Les données représentant les défauts de paiement étant largement minoritaire
 
 \- SMOTE: algorithme qui synthétise des données pour la classe minoritaire. Permet de créer un jeu de données équilibré.
 
-\- class weights: plus de poids est appliqué aux données minoritaire (ici les prêts en défaut de paiement) dans la fonction de coût de sorte à accorder une plus grosse pénalité et ainsi modifier les paramètres du model.
+\- class weights: plus de poids est appliqué aux données minoritaire (ici les prêts en défaut de paiement) dans la fonction de coût de sorte à accorder une plus grosse pénalité et ainsi modifier les paramètres du model:
+
+![](./images/CaptureLogLossFormulaWithWeighted.PNG)
 
 **TUNING des hyper-paramètres**
 
