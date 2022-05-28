@@ -21,9 +21,7 @@ https://p7-dashboard-app.herokuapp.com
 
 ## METHODOLOGIE D'ENTRAINEMENT DU MODELE
 
-Le modèle a été entrainé avec un jeu de donnée issue d'un preprocessing comportant les phases de feature engineering, consolidation, nettoyage et transformation. Le
-
-notebook utilisé est consultable sur le site kaggle:
+Le modèle a été entrainé avec un jeu de donnée issue d'un preprocessing comportant les phases de feature engineering, consolidation, nettoyage et transformation. Le notebook utilisé est consultable sur le site kaggle:
 
 ([https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée])
 
