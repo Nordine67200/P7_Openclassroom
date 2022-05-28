@@ -25,9 +25,7 @@ Le modèle a été entrainé avec un jeu de donnée issue d'un preprocessing com
 
 ([https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée])
 
-Le jeu de données étant déséquilibrée: 92% des données ne sont pas des prêts ne présentent pas de risque de défaut de paiement tandis que seul 8% en présente. De
-
-ce fait, si l'on sépare le jeu de données en données de training et de test de manière aléatoire, il y a des risques que l'on n'ait que les prêts en risque dans le jeu de training ou de test, ce qui nous donnera un mauvais score.
+Le jeu de données étant déséquilibrée: 92% des données ne sont pas des prêts ne présentent pas de risque de défaut de paiement tandis que seul 8% en présente. De ce fait, si l'on sépare le jeu de données en données de training et de test de manière aléatoire, il y a des risques que l'on n'ait que les prêts en risque dans le jeu de training ou de test, ce qui nous donnera un mauvais score.
 
 La séparation se fera en utilisant la fonction train\_test\_split (sklearn.model\_selection) avec l'option stratify=y.
 
