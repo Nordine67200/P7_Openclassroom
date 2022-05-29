@@ -2,11 +2,13 @@ import streamlit as st
 #st.set_page_config(layout="wide")
 from app.preprocess import *
 from app.model import *
-from sklearn.metrics import f1_score, confusion_matrix,  recall_score, precision_score
+from sklearn.metrics import f1_score, confusion_matrix,  recall_score, precision_score, fbeta_score
 import requests
 import json
 import seaborn as sns
 import matplotlib.pyplot as plt
+from st_aggrid import AgGrid
+import altair as alt
 allow_output_mutation=True
 
 
@@ -15,6 +17,7 @@ st.sidebar.image('/app/files/logo.png')
 
 
 baseUrl = 'https://p7-scoring-app.herokuapp.com/predict/'
+
 @st.cache(persist=True)
 def cache_data():
     return pd.read_csv('/app/files/data_df.csv', sep=';').drop(columns=['Unnamed: 0'])
@@ -73,9 +76,33 @@ def getTop10MostImportantParameters(classifier, df):
     feature_imp = pd.DataFrame(sorted(zip(classifier.feature_importances_, X.columns)), columns=['Value', 'Feature'])
     return feature_imp.sort_values(by="Value", ascending=False)[:10]
 
+@st.cache(persist=True)
+def getColumnDescriptorData(cols, bureau_tableName, prevApp_tableName, app_tableName, ins_dict):
+    colDescriptor_df = pd.read_csv("/app/files/HomeCredit_columns_description.csv", encoding = "ISO-8859-1").drop(columns=['Unnamed: 0'])
+    visu_df = pd.DataFrame(columns=cols)
+    row = {}
+    for col in cols:
+        if col.endswith('BUR'):
+            table_df = colDescriptor_df[colDescriptor_df['Table'] == bureau_tableName]
+            row[col] = table_df[table_df['Row'] == col[:-4]]['Description'].values[0]
+        elif col.endswith('PREV_APP'):
+            table_df = colDescriptor_df[colDescriptor_df['Table'] == prevApp_tableName]
+            row[col] = table_df[table_df['Row'] == col[:-9]]['Description'].values[0]
+        else:
+            table_df = colDescriptor_df[colDescriptor_df['Table'] == app_tableName]
+            if table_df[table_df['Row'] == col]['Description'].empty:
+                row[col] = ins_dict[col]
+            else:
+                row[col] = table_df[table_df['Row'] == col]['Description'].values[0]
+    return_df = visu_df.append(row, ignore_index=True).T.reset_index()
+    return_df.columns = ['Column name', 'Description']
+    return return_df
+
+def fBetaScore(Precision, Recall, beta = 1):
+    return ((1 + np.power(beta, 2)) * Precision * Recall) / ((np.power(beta, 2) * Precision) + Recall)
+
 def plot_heatmap(pred_test, y_test):
     # Calculating and printing the f1 score
-    f1_test = f1_score(y_test, pred_test, average='weighted')
     cf_matrix = confusion_matrix(y_test, pred_test)
     group_names = ['True Neg', 'False Pos', 'False Neg', 'True Pos']
     group_counts = ['{0:0.0f}'.format(value) for value in
@@ -89,7 +116,10 @@ def plot_heatmap(pred_test, y_test):
     sns.set(rc={'figure.figsize': (15, 8)})
     sns.heatmap(cf_matrix, annot=labels, fmt='', cmap='Greens', cbar=False)
     sns.set(font_scale=1.4)
-    return f1_test, recall_score(y_test, pred_test), precision_score(y_test, pred_test, average='micro'), fig
+    precision = precision_score(y_test, pred_test, average='micro')
+    recall = recall_score(y_test, pred_test)
+    f1_test = fBetaScore(precision, recall, 2)
+    return f1_test, recall, precision, fig
 
 def getBarPlot(score, threshold):
     color_s = 'green'
@@ -127,7 +157,7 @@ def getMetricsBarPlot(f1, recall, precision):
         y = patches[i].get_height() + .05
         ax.annotate('{:.1f}%'.format(dataPlot['Score'][i]*100), (x, y), ha='center')
     plt.ylim(0, 1)
-    plt.title('Score des différentes métriques (f1, recall, précision)', fontsize=20)
+    plt.title('Score des différentes métriques (f2, recall, précision)', fontsize=20)
     return fig
 
 def getThreshold():
@@ -175,12 +205,25 @@ def plotBarPlotAgainstQuantile(feature_imp, df, skCurrId, qnt):
     fig, ax = plt.subplots()
     sns.set(style='white')
     sns.barplot(x='values', y='column', hue='type', data=df2)
+    #data = pd.melt(df2.reset_index(), id_vars=["column"])
     return fig
 
 df = cache_data()
+ins_dict = {'DPD_INS': 'Days past due',
+            'DBD_INS': 'Days before due',
+            'PAYMENT_PERC_INS': 'Percentage of amount paid on previous installment',
+            'PAYMENT_DIFF_INS': 'Difference between amount due and amount paid on previous installment'}
+
 X_train, X_test, y_train, y_test = split(df)
 classifier = getModel(X_train, y_train)
 feature_importance = getTop10MostImportantParameters(classifier, df)
+bureau_tableName = 'bureau.csv'
+prevApp_tableName = 'previous_application.csv'
+app_tableName = 'application_{train|test}.csv'
+ins_tableName = 'installments_payments.csv'
+colDescriptor_df = getColumnDescriptorData(feature_importance['Feature'].values, bureau_tableName=bureau_tableName,
+                                           prevApp_tableName=prevApp_tableName, app_tableName=app_tableName,
+                                           ins_dict=ins_dict)
 
 st.sidebar.header('Choix du seuil: ')
 threshold = getThreshold()
@@ -192,11 +235,12 @@ score = getClassifiedData(skCurrId, 0.5)
 pred_test = predict(X_test, threshold)
 f1_test, recall, precision, fig = plot_heatmap(pred_test, y_test)
 
-
-if st.sidebar.checkbox("Données du prêt", False):
-    st.subheader("Données standardisées du prêt pour les 10 paramètres les plus influents")
+if st.sidebar.checkbox("Représentation graphique des données du prêt", False):
+    st.subheader("Visualisation graphique des données standardisées du prêt pour les 10 paramètres les plus influents")
     qnt = st.slider('Choisissez le quantile de comparaison:', 0.0,1.0,0.75)
     st.write(plotBarPlotAgainstQuantile(feature_importance, df, skCurrId, qnt))
+    if st.checkbox("Description des 10 paramètres les plus influents"):
+        AgGrid(colDescriptor_df, fit_columns_on_grid_load=True, height=320)
 if st.sidebar.checkbox("Score du prêt et décision", False):
     predict_s = (score >= threshold)
     prediction = 'Accepté'
