@@ -7,10 +7,6 @@ Lien du github où se trouve le notebook ainsi que les différentes sources:
 
 https://github.com/Nordine67200/P7_Openclassroom
 
-Lien du dashboard:
-
-https://p7-dashboard-app.herokuapp.com
-
 ## CONTEXTE
 
 • Dans le cadre du projet 7 de la formation Data Scentist, il est demandé d'implémenter un modèle de scoring de demande de prêt. Cette note présente le processus de modélisation et d'interprétabilité.
@@ -21,11 +17,15 @@ https://p7-dashboard-app.herokuapp.com
 
 ## METHODOLOGIE D'ENTRAINEMENT DU MODELE
 
-Le modèle a été entrainé avec un jeu de donnée issue d'un preprocessing comportant les phases de feature engineering, consolidation, nettoyage et transformation. Le notebook utilisé est consultable sur le site kaggle:
+Le modèle a été entrainé avec un jeu de donnée issue d'un preprocessing comportant les phases de feature engineering, consolidation, nettoyage et transformation. Le
+
+notebook utilisé est consultable sur le site kaggle:
 
 ([https://www.kaggle.com/code/nordinerajaoui/notebook708a653bac/notebook#Analyse-univariée])
 
-Le jeu de données étant déséquilibrée: 92% des données ne sont pas des prêts ne présentent pas de risque de défaut de paiement tandis que seul 8% en présente. De ce fait, si l'on sépare le jeu de données en données de training et de test de manière aléatoire, il y a des risques que l'on n'ait que les prêts en risque dans le jeu de training ou de test, ce qui nous donnera un mauvais score.
+Le jeu de données étant déséquilibrée: 92% des données ne sont pas des prêts ne présentent pas de risque de défaut de paiement tandis que seul 8% en présente. De
+
+ce fait, si l'on sépare le jeu de données en données de training et de test de manière aléatoire, il y a des risques que l'on n'ait que les prêts en risque dans le jeu de training ou de test, ce qui nous donnera un mauvais score.
 
 La séparation se fera en utilisant la fonction train\_test\_split (sklearn.model\_selection) avec l'option stratify=y.
 
@@ -103,6 +103,9 @@ Les équipes opérationnelles devant être en mesure d'expliquer les décisions 
 \- Volet analyse par prêt: permet de visualiser le score ainsi que la décision et de l'expliquer via une comparaison des 10 paramètres les plus influents avec les données d'un quantile au choix:
 
 ![](./images/CaptureDataVsQuantile.PNG)
+							On utilise LIME pour expliquer le score:
+							
+![](./images/CaptureLime.PNG)
 
 \- Volet analyse du modèle: permet de visualiser la performance du modèle par seuil de décision (voir plus haut).
 
