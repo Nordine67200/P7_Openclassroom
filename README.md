@@ -100,10 +100,7 @@ Le f1-score effectuant une moyenne harmonique entre le recall et la précision e
 
 Les équipes opérationnelles devant être en mesure d'expliquer les décisions de l'algorithmes, un dashboard est mis à leur disposition avec deux volets principales:
 
-\- Volet analyse par prêt: permet de visualiser le score ainsi que la décision et de l'expliquer via une comparaison des 10 paramètres les plus influents avec les données d'un quantile au choix:
-
-![](./images/CaptureDataVsQuantile.PNG)
-							On utilise LIME pour expliquer le score:
+\- Volet analyse par prêt: On utilise LIME pour expliquer le score:
 							
 ![](./images/CaptureLime2.PNG)
 
