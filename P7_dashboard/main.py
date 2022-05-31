@@ -1,4 +1,5 @@
 import streamlit as st
+import shap
 #st.set_page_config(layout="wide")
 from app.preprocess import *
 from app.model import *
@@ -8,6 +9,8 @@ import json
 import seaborn as sns
 import matplotlib.pyplot as plt
 from st_aggrid import AgGrid
+import lime
+
 import altair as alt
 allow_output_mutation=True
 
@@ -208,6 +211,21 @@ def plotBarPlotAgainstQuantile(feature_imp, df, skCurrId, qnt):
     #data = pd.melt(df2.reset_index(), id_vars=["column"])
     return fig
 
+def getLimePlots(classifier, df, X_train, skCurrId):
+    numerical_columns, _ = splitColsByType(df)
+    X, _ = create_X_Y(df, numerical_columns)
+    X['SK_ID_CURR'] = df['SK_ID_CURR'].values
+    explainer = lime.lime_tabular.LimeTabularExplainer(X_train, mode="classification",
+                                                  class_names=['Prêt ok', 'Risque défaut'],
+                                                  feature_names=X.columns.values
+                                                  )
+    explanation = explainer.explain_instance(X[X['SK_ID_CURR'] == skCurrId].drop(columns=['SK_ID_CURR']).values[0],
+                                             classifier.predict_proba,
+                                             num_features=len(X.columns))
+
+    return explanation.as_pyplot_figure()
+
+
 df = cache_data()
 ins_dict = {'DPD_INS': 'Days past due',
             'DBD_INS': 'Days before due',
@@ -241,6 +259,7 @@ if st.sidebar.checkbox("Représentation graphique des données du prêt", False)
     st.write(plotBarPlotAgainstQuantile(feature_importance, df, skCurrId, qnt))
     if st.checkbox("Description des 10 paramètres les plus influents"):
         AgGrid(colDescriptor_df, fit_columns_on_grid_load=True, height=320)
+
 if st.sidebar.checkbox("Score du prêt et décision", False):
     predict_s = (score >= threshold)
     prediction = 'Accepté'
@@ -249,7 +268,9 @@ if st.sidebar.checkbox("Score du prêt et décision", False):
     subheader = "Prévision pour le prêt " +str(skCurrId) + ": " + prediction
     st.subheader(subheader)
     st.write(getBarPlot(score, threshold))
-
+    
+if st.sidebar.checkbox("Interprétation de l'influence des données"):
+        st.write(getLimePlots(classifier=classifier, X_train=X_train, df=df, skCurrId=skCurrId))
 
 
 st.sidebar.header('Analyse du modèle: ')
@@ -260,6 +281,7 @@ st.sidebar.header('Analyse du modèle: ')
 if st.sidebar.checkbox("Importance des données", False):
     st.subheader("Importances des données pour le modèle")
     st.write(plotFeatureImportance(feature_importance))
+
 if st.sidebar.checkbox("Métriques du modèle", False):
     st.subheader("Métriques du modèle")
     st.write(getMetricsBarPlot(f1_test, recall, precision))
