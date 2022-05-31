@@ -105,7 +105,7 @@ Les équipes opérationnelles devant être en mesure d'expliquer les décisions 
 ![](./images/CaptureDataVsQuantile.PNG)
 							On utilise LIME pour expliquer le score:
 							
-![](./images/CaptureLime.PNG)
+![](./images/CaptureLime2.PNG)
 
 \- Volet analyse du modèle: permet de visualiser la performance du modèle par seuil de décision (voir plus haut).
 
